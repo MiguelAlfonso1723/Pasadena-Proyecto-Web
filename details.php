@@ -93,7 +93,7 @@ if($id == '' || $token == ''){
             </li>
         </ul>
 
-        <a href="carrito.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge bg-secondary" ><?php echo $num_cart; ?></span></a>
+        <a href="checkout.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge bg-secondary" ><?php echo $num_cart; ?></span></a>
       </div>
     <nav class="py-2 bg-light border-bottom">
     </div>

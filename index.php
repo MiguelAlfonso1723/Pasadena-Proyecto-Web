@@ -49,7 +49,7 @@ print_r($_SESSION);
             </li>
         </ul>
 
-        <a href="carrito.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge rounded-pill bg-danger" style="col"><?php echo $num_cart; ?></span></a>
+        <a href="checkout.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge rounded-pill bg-danger" style="col"><?php echo $num_cart; ?></span></a>
       </div>
     <nav class="py-2 bg-light border-bottom">
     </div>
