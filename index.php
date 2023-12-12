@@ -9,6 +9,12 @@ $con = $db->conectar();
 $sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activo = 1");
 $sql->execute();
 $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+//session_destroy();
+
+print_r($_SESSION);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +49,7 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
             </li>
         </ul>
 
-        <a href="carrito.php" class=""><img src="./images/3144456.png" width="40"><br><p>Carrito</p></a>
+        <a href="carrito.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge rounded-pill bg-danger" style="col"><?php echo $num_cart; ?></span></a>
       </div>
     <nav class="py-2 bg-light border-bottom">
     </div>
@@ -77,7 +83,9 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <a href="details.php?id=<?php echo $row['id']; ?>&token=<?php echo
                     hash_hmac('sha1', $row['id'], KEY_TOKEN); ?>" class="btn btn-warning">Detalles</a>
                   </div>
-                  <a href="" class="btn btn-danger">Agregar</a>
+                  <button class="btn btn-outline-success" type="button" onclick="addProducto(<?php echo 
+                  $row['id']; ?>, '<?php echo
+                    hash_hmac('sha1', $row['id'], KEY_TOKEN); ?>')">Agregar al carrito</button>
                 </div>
               </div>
             </div>
@@ -88,5 +96,25 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
+    <script>
+      function addProducto(id, token){
+          let url= './clases/carrito.php'
+          let formData = new FormData()
+          formData.append('id', id)
+          formData.append('token', token)
+
+          fetch(url, {
+            method:'POST', 
+            body:formData,
+            mode: 'cors'
+          }).then(response => response.json()
+          .then(data => {
+            if(data.ok){
+              let elemento =document.getElementById("num_cart")
+              elemento.innerHTML= data.numero
+            }
+          }))
+      }
+    </script>
+  </body>
 </html>

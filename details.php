@@ -38,14 +38,18 @@ if($id == '' || $token == ''){
       }
 
       $imagenes =  array();
-      $dir = dir($dir_images);
+      if(file_exists($dir_images)){
+        $dir = dir($dir_images);
 
-      while(($archivo = $dir->read()) != false){  
-          if($archivo != 'Principal.png' && (strpos($archivo,'png') || strpos($archivo, 'jpeg'))){
-            $imagenes[] = $dir_images . $archivo;
-          } 
+        while(($archivo = $dir->read()) != false){  
+            if($archivo != 'Principal.png' && (strpos($archivo,'png') || strpos($archivo, 'jpeg'))){
+              $imagenes[] = $dir_images . $archivo;
+            } 
+        }
+        $dir->close();
       }
-      $dir->close();
+      
+      
     }
   }else{
     echo 'Error al procesar la informacion';
@@ -89,7 +93,7 @@ if($id == '' || $token == ''){
             </li>
         </ul>
 
-        <a href="carrito.php" class=""><img src="./images/3144456.png" width="40"><br><p>Carrito</p></a>
+        <a href="carrito.php" ><img src="./images/3144456.png" width="40"><br><span id="num_cart" class="badge bg-secondary" ><?php echo $num_cart; ?></span></a>
       </div>
     <nav class="py-2 bg-light border-bottom">
     </div>
@@ -147,7 +151,8 @@ if($id == '' || $token == ''){
 
           <dir class="d-grid gap-3 col-10 mx-auto">
             <button class="btn btn-success" type="button">Comprar Ahora</button>
-            <button class="btn btn-outline-warning" type="button">Agregar al carrito</button>
+            <button class="btn btn-outline-warning" type="button" onclick="addProducto(<?php echo 
+            $id; ?>, '<?php echo $token_tmp; ?>')">Agregar al carrito</button>
 
 
           </dir>
@@ -157,5 +162,25 @@ if($id == '' || $token == ''){
   </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
+    <script>
+      function addProducto(id, token){
+          let url= './clases/carrito.php'
+          let formData = new FormData()
+          formData.append('id', id)
+          formData.append('token', token)
+
+          fetch(url, {
+            method:'POST', 
+            body:formData,
+            mode: 'cors'
+          }).then(response => response.json()
+          .then(data => {
+            if(data.ok){
+              let elemento =document.getElementById("num_cart")
+              elemento.innerHTML= data.numero
+            }
+          }))
+      }
+    </script>
+  </body>
 </html>
