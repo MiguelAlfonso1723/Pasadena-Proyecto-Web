@@ -235,8 +235,8 @@ if ($productos != null) {
             }
         }).render('#paypal-button-container');
 
-        const mp = new MercadoPago('TEST-264d235b-f848-4e7f-95eb-2fabf2ff31ef', {
-            locale: 'es-CO'
+        const mp = new MercadoPago('<?php echo PUBLIC_KEY_MP; ?>', {
+            locale: '<?php echo LOCALE_MP; ?>'
         });
 
         mp.checkout({

@@ -14,19 +14,19 @@ $mail = new PHPMailer(true);
 
 try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;    
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;    
     $mail->isSMTP();                                            
-    $mail->Host       = 'smtp.gmail.com';                    
+    $mail->Host       = MAIL_HOST;                    
     $mail->SMTPAuth   = true;                                   
-    $mail->Username   = 'miguel.alfonso1702@gmail.com';                     
-    $mail->Password   = 'tfmqzpfilmzvfewt';                              
+    $mail->Username   = MAIL_USER;                     
+    $mail->Password   = MAIL_PASS; //'tfmqzpfilmzvfewt';                              
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Port       = MAIL_PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('miguel.alfonso1702@gmail.com', 'Supermercado Pasadena');
+    $mail->setFrom(MAIL_USER, 'Supermercado Pasadena');
     $mail->addAddress('mono170203@gmail.com', 'Miguel Alfonso');   
-    //$mail->addReplyTo('info@example.com', 'Information');
+    $mail->addReplyTo('mono170203@gmail.com');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
 

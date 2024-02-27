@@ -46,9 +46,30 @@ if (!empty($_POST)) {
 
         if ($id > 0) {
 
-            $pass_hash = password_hash($password, PASSWORD_DEFAULT);
+            require 'clases/Mailer.php';
+
             $token = generarToken();
-            if (!registrarUsuario([$usuario, $pass_hash, $token, $id], $con)) {
+            $mailer = new Mailer();
+            $pass_hash = password_hash($password, PASSWORD_DEFAULT);
+            
+
+            $idUsuario = registrarUsuario([$usuario, $pass_hash, $token, $id], $con);
+            if ($idUsuario > 0) {
+
+                $url = SITE_URL . '/activar_cliente.php?id='.$idUsuario .'&token='.$token;
+
+                $asunto = "Activar cuenta - Pasadena Online";
+                $cuerpo = "Estimado $nombres: <br> Para continuar con el proceso de registro es indispensable de click
+                en la siguinte boton. <br> <a href='$url'>Activar cuenta</a>";
+                
+                if($mailer->enviarEmail($email, $asunto, $cuerpo)){
+                    echo "Para terminar el proceso de registro siga las instrucciones que le hemos enviado a la 
+                    dirección de correo electrónico $email";
+
+                    exit;
+                }
+
+            }else{
                 $errors[] = "Error al registrar usuario";
             }
 
@@ -131,6 +152,7 @@ if (!empty($_POST)) {
                 <div class="col-md-6">
                     <label for="email"><span class="text-danger">*</span> Correo Electrónico</label>
                     <input type="email" name="email" id="email" class="form-control" requireda>
+                    <span id="validaEmail" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label for="telefono"><span class="text-danger">*</span> Telefono</label>
@@ -144,6 +166,7 @@ if (!empty($_POST)) {
                 <div class="col-md-6">
                     <label for="usuario"><span class="text-danger">*</span> Usuario</label>
                     <input type="text" name="usuario" id="usuario" class="form-control" requireda>
+                    <span id="validaUsuario" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6">
@@ -168,6 +191,69 @@ if (!empty($_POST)) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
+    <script>
+
+        let txtUsuario = document.getElementById('usuario')
+        txtUsuario.addEventListener("blur", function () {
+            existeUsuario(txtUsuario.value)
+        }, false)
+
+        let txtEmail = document.getElementById('email')
+        txtEmail.addEventListener("blur", function () {
+            existeEmail(txtEmail.value)
+        }, false)
+
+        function existeUsuario(usuario) {
+
+            let url = "clases/clienteAjax.php"
+            let formData = new FormData()
+
+            formData.append("action", "existeUsuario")
+            formData.append("usuario", usuario)
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+
+                    if (data.ok) {
+                        document.getElementById('usuario').value = ''
+                        document.getElementById('validaUsuario').innerHTML = 'Usuario no disponible'
+                    } else {
+                        document.getElementById('validaUsuario').innerHTML = ''
+                    }
+
+                })
+
+        }
+
+        function existeEmail(email) {
+
+            let url = "clases/clienteAjax.php"
+            let formData = new FormData()
+
+            formData.append("action", "existeEmail")
+            formData.append("email", email)
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+
+                    if (data.ok) {
+                        document.getElementById('email').value = ''
+                        document.getElementById('validaEmail').innerHTML = 'Email no disponible'
+                    } else {
+                        document.getElementById('validaEmail').innerHTML = ''
+                    }
+
+                })
+
+        }
+    </script>
 
 </body>
 
