@@ -1,6 +1,52 @@
 {
     "packages": [
         {
+            "name": "deployer/deployer",
+            "version": "v7.3.3",
+            "version_normalized": "7.3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deployphp/deployer.git",
+                "reference": "3535bdb2f6360662bd95f6e26fce31dbc269af64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/3535bdb2f6360662bd95f6e26fce31dbc269af64",
+                "reference": "3535bdb2f6360662bd95f6e26fce31dbc269af64",
+                "shasum": ""
+            },
+            "time": "2023-11-07T10:27:12+00:00",
+            "bin": [
+                "dep"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Medvedev",
+                    "email": "anton@medv.io"
+                }
+            ],
+            "description": "Deployment Tool",
+            "homepage": "https://deployer.org",
+            "support": {
+                "docs": "https://deployer.org/docs",
+                "issues": "https://github.com/deployphp/deployer/issues",
+                "source": "https://github.com/deployphp/deployer"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/antonmedv",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../deployer/deployer"
+        },
+        {
             "name": "doctrine/annotations",
             "version": "1.14.3",
             "version_normalized": "1.14.3.0",
@@ -607,5 +653,7 @@
         }
     ],
     "dev": true,
-    "dev-package-names": []
+    "dev-package-names": [
+        "deployer/deployer"
+    ]
 }
