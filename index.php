@@ -43,7 +43,7 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarHeader">
+      <div class="collapse navbar-collapse" id="navbarHeader" style="text-align:center">
         <ul class="navbar-nav me-auto mb-2 mg-lg-0">
           <li class="nav-item">
             <a href="index.php" class="nav-link active">Catalogo</a>
@@ -53,16 +53,23 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
           </li>
         </ul>
 
+        <?php if(isset($_SESSION['user_id'])){ ?>
+          <a href="#" style="color:#d92429;" class="me-5"><img  src="./images/user-nav.png" width="40" ><br><?php echo $_SESSION['user_name']; ?></a>
+
+        <?php } else{  ?>     
+          <a href="login.php" style="color:#d92429;" class="me-5"><img src="./images/user-nav.png" width="40"><br>Ingresar</a>
+        <?php } ?>
+        
         <a href="checkout.php"><img src="./images/3144456.png" width="40"><br><span id="num_cart"
             class="badge rounded-pill bg-danger" style="col">
             <?php echo $num_cart; ?>
           </span></a>
+
+        
       </div>
-      <nav class="py-2 bg-light border-bottom">
     </div>
 
 
-    </nav>
   </header>
 
   <main class="flex-shrink-0">

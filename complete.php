@@ -80,11 +80,8 @@ if ($id_transaccion == '' || $id_transaccion == 0) {
                         <?php echo $num_cart; ?>
                     </span></a>
             </div>
-            <nav class="py-2 bg-light border-bottom">
         </div>
 
-
-        </nav>
     </header>
 
     <main>
