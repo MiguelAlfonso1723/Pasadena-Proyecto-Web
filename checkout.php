@@ -179,7 +179,7 @@ if ($productos != null) {
                     let list = document.getElementsByName('subtotal[]')
 
                     for (let i = 0; i < list.length; i++) {
-                        total += parseFloat(list[i].innerHTML.replace(/[$,]/g, ''))
+                        total += parseFloat(list[i].innerHTML.replace(/[<?php echo MONEDA; ?>,]/g, ''))
                     }
 
                     total = new Intl.NumberFormat('en-US', {
