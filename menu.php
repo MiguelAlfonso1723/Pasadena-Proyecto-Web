@@ -22,17 +22,16 @@
 
             <?php if (isset($_SESSION['user_id'])) { ?>
 
-                <div class="dropdown">
+                <div class="dropdown me-5">
                     <a href="#" style="color: #d92429; background-color: rgba(255,213,0,0.71);" class="btn btn-success btn-sm dropdown-toggle" role="button" id="btn_session"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="./images/user-nav.png" width="40"><br><?php echo $_SESSION['user_name']; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="btn_session">
+                        <li><a class="dropdown-item" href="compras.php">Mis compras</a></li>
                         <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
                     </ul>
                 </div>
-
-
 
                 <!--<a href="#" style="color:#d92429;" class="me-5"><img src="./images/user-nav.png"
                                                                      width="40"><br><?php /*echo $_SESSION['user_name']; */?>
