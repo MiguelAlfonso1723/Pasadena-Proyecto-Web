@@ -114,7 +114,9 @@ if ($productos != null) {
 
             <div class="row">
                 <div class="col-md-5 offset-md-7 d-grid gap-2">
-                    <a href="pago.php" button class="btn btn-success bt-lg">Realizar pago</a>
+
+                    <a href="pago.php" button class="btn btn-success bt-lg">Realizar pago
+
                 </div>
             </div>
 
