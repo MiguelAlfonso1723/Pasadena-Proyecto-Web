@@ -9,7 +9,7 @@ MercadoPago\SDK::setAccessToken(TOKEN_MP);
 $preference = new MercadoPago\Preference();
 $productos_mp = array();
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;

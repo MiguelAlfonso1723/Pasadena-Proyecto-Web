@@ -2,7 +2,7 @@
 
 require './config/config.php';
 require './config/database.php';
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;

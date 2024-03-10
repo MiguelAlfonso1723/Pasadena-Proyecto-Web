@@ -39,7 +39,7 @@ function agregar( $id, $cantidad){
         if(isset($_SESSION['carrito']['productos'][$id])){
             $_SESSION['carrito']['productos'][$id] = $cantidad;
 
-            $db = new Database();
+            $db = new database();
             $con = $db ->conectar();
 
             $sql = $con->prepare("SELECT precio, descuento FROM productos WHERE id=? AND activo=1 LIMIT 1");

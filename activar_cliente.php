@@ -12,7 +12,7 @@ if($id == '' || $token == ''){
     exit;
 }
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 echo validaToken($id, $token, $con);

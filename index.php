@@ -3,7 +3,7 @@
 require './config/config.php';
 require './config/database.php';
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activo = 1");

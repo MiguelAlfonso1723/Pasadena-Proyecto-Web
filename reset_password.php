@@ -12,7 +12,7 @@ if ($user_id == '' || $token == '') {
     exit;
 }
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $errors = [];

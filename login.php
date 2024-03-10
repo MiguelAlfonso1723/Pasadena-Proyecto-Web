@@ -4,7 +4,7 @@ require './config/config.php';
 require './config/database.php';
 require './clases/clienteFunciones.php';
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $proceso = isset($_GET['pago']) ? 'pago' : 'login';

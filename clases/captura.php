@@ -2,7 +2,7 @@
 
 require '../config/config.php';
 require '../config/database.php';
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $json = file_get_contents('php://input');

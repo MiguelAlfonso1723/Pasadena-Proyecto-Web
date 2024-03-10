@@ -10,7 +10,7 @@ if(isset($_POST['action'])){
 
     $action = $_POST['action'];
 
-    $db = new Database();
+    $db = new database();
     $con = $db->conectar();
 
     if($action == 'existeUsuario'){

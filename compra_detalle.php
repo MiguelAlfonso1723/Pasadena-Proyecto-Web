@@ -13,7 +13,7 @@ if ($orden == null || $token == null || $token != $token_session) {
     exit;
 }
 
-$db = new Database();
+$db = new database();
 $con = $db->conectar();
 
 $sqlCompra = $con->prepare("SELECT id, id_transaccion, fecha, total FROM compra WHERE id_transaccion = ? LIMIT 1");
