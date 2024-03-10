@@ -71,40 +71,7 @@ if (!empty($_POST)) {
 
 <body>
 
-<header class="py-3 mb-4 border-bottom">
-    <div class="navbar navbar-expand-lg container d-flex flex-wrap justify-content-center">
-        <a href="index.php"
-           class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-            <span class="fs-4"><img src="./images/logoPasadena.png" width="180"></span>
-
-        </a>
-        &emsp;
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-                aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarHeader">
-            <ul class="navbar-nav me-auto mb-2 mg-lg-0">
-                <li class="nav-item">
-                    <a href="index.php" class="nav-link active">Catalogo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link ">Contacto</a>
-                </li>
-            </ul>
-
-            <a href="checkout.php"><img src="./images/3144456.png" width="40"><br><span id="num_cart"
-                                                                                        class="badge rounded-pill bg-danger"
-                                                                                        style="col">
-                        <?php echo $num_cart; ?>
-                    </span></a>
-        </div>
-        <nav class="py-2 bg-light border-bottom">
-    </div>
-
-    </nav>
-</header>
+<?php include 'menu.php'; ?>
 
 <main class="form-login m-auto pt-4">
     <h3>Recuperar contraseña</h3>

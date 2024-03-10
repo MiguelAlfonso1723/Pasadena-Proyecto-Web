@@ -17,9 +17,9 @@ $con = $db->conectar();
 
 $errors = [];
 
-if (!verificarTokenRequest($user_id, $token, $con)){
-echo  "No se pudo verificar la informacion";
-exit;
+if (!verificarTokenRequest($user_id, $token, $con)) {
+    echo "No se pudo verificar la informacion";
+    exit;
 }
 
 if (!empty($_POST)) {
@@ -27,7 +27,7 @@ if (!empty($_POST)) {
     $password = trim($_POST['password']);
     $repassword = trim($_POST['repassword']);
 
-    if (esNulo([$user_id, $token ,$password, $repassword])) {
+    if (esNulo([$user_id, $token, $password, $repassword])) {
         $errors[] = "Debe llenar todos los campos";
     }
 
@@ -35,12 +35,12 @@ if (!empty($_POST)) {
         $errors[] = "Las contraseñas no coinciden";
     }
 
-    if (count($errors) == 0){
+    if (count($errors) == 0) {
         $pass_hash = password_hash($password, PASSWORD_DEFAULT);
-        if (actualizaPassword($user_id, $pass_hash, $con)){
+        if (actualizaPassword($user_id, $pass_hash, $con)) {
             echo "Contraseña modificada.<br><a href='login.php'>Iniciar sesión</a>";
             exit;
-        } else{
+        } else {
             $errors[] = "Error al modificar la contraseña. Intentalo nuevamente.";
         }
     }
@@ -63,41 +63,7 @@ if (!empty($_POST)) {
 
 <body>
 
-<header class="py-3 mb-4 border-bottom">
-    <div class="navbar navbar-expand-lg container d-flex flex-wrap justify-content-center">
-        <a href="index.php"
-           class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-            <span class="fs-4"><img src="./images/logoPasadena.png" width="180"></span>
-
-        </a>
-        &emsp;
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-                aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarHeader">
-            <ul class="navbar-nav me-auto mb-2 mg-lg-0">
-                <li class="nav-item">
-                    <a href="index.php" class="nav-link active">Catalogo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link ">Contacto</a>
-                </li>
-            </ul>
-
-            <a href="checkout.php"><img src="./images/3144456.png" width="40"><br><span id="num_cart"
-                                                                                        class="badge rounded-pill bg-danger"
-                                                                                        style="col">
-                        <?php echo $num_cart; ?>
-                    </span></a>
-        </div>
-        <nav class="py-2 bg-light border-bottom">
-    </div>
-
-
-    </nav>
-</header>
+<?php include 'menu.php'; ?>
 
 <main class="form-login m-auto pt-4">
     <h3>Cambiar contraseña</h3>
@@ -110,12 +76,14 @@ if (!empty($_POST)) {
         <input type="hidden" name="token" id="token" value="<?= $token; ?>">
 
         <div class="form-floating">
-            <input class="form-control" type="password" name="password" id="password" placeholder="Nueva contraseña" required>
+            <input class="form-control" type="password" name="password" id="password" placeholder="Nueva contraseña"
+                   required>
             <label for="password">Nueva contraseña</label>
         </div>
 
         <div class="form-floating">
-            <input class="form-control" type="password" name="repassword" id="repassword" placeholder="Confirmar contraseña" required>
+            <input class="form-control" type="password" name="repassword" id="repassword"
+                   placeholder="Confirmar contraseña" required>
             <label for="repassword">Confirmar contraseña</label>
         </div>
 
