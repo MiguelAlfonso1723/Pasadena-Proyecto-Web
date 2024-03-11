@@ -19,7 +19,7 @@ $con = $db->conectar();
 
 $id = $_GET['id'];
 
-$sql = $con->prepare("SELECT nombre, descripcion, descuento, precio, stock, descuento, id_categoria FROM productos WHERE id= ? AND activo = 1");
+$sql = $con->prepare("SELECT id, nombre, descripcion, descuento, precio, stock, descuento, id_categoria FROM productos WHERE id= ? AND activo = 1");
 $sql->execute([$id]);
 $producto = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -31,12 +31,24 @@ $rutaImagenes = '../../images/Productos/' . $id . '/';
 $imagenPrincipalJPEG = $rutaImagenes . 'Principal.jpeg';
 $imagenPrincipalPNG = $rutaImagenes . 'Principal.png';
 
+$imagenes = [];
+$dirInit = dir($rutaImagenes);
+
+while (($archivo = $dirInit->read()) !== false) {
+    if ($archivo != 'principal.jpeg' && (strpos($archivo, 'jpeg') || strpos($archivo, 'png'))) {
+        $image = $rutaImagenes . $archivo;
+        $imagenes[] = $image;
+    }
+}
+$dirInit->close();
+
+
 if (file_exists($imagenPrincipalJPEG)) {
     $imagenPrincipal = $imagenPrincipalJPEG;
 } elseif (file_exists($imagenPrincipalPNG)) {
     $imagenPrincipal = $imagenPrincipalPNG;
 } else {
-    $imagenPrincipal = null; // Maneja el caso de que no se encuentre ninguna imagen
+    $imagenPrincipal = null;
 }
 
 ?>
@@ -54,11 +66,12 @@ if (file_exists($imagenPrincipalJPEG)) {
     <div class="container-fluid px-4">
         <h2 class="mt-4">Modifica producto</h2>
 
-        <form action="guarda.php" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="actualiza.php" method="post" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" name="id" value="<?php echo $producto['id'] ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" name="nombre" id="nombre"
-                       value="<?php echo $producto['nombre'] ?>" required autofocus>
+                       value="<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>" required autofocus>
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripcion</label>
@@ -69,21 +82,35 @@ if (file_exists($imagenPrincipalJPEG)) {
             <div class="row mb-2">
                 <div class="col-12 col-md-6">
                     <label for="imagen_principal" class="form-label">Imagen principal</label>
-                    <input type="file" class="form-control" name="imagen_principal" id="imagen_principal"
-                           accept="image/jpeg, image/png" required>
+                    <input type="file" class="form-control" name="imagen_principal" id="imagen_principal" accept="image/jpeg, image/png">
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="otras_imagenes" class="form-label">Otras imagenes</label>
-                    <input type="file" class="form-control" name="otras_imagenes[]" id="otras_imagenes"
-                           accept="image/jpeg, image/png" multiple>
+                    <input type="file" class="form-control" name="otras_imagenes[]" id="otras_imagenes" accept="image/jpeg, image/png" multiple>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col-12 col-md-6">
-                    <?php if (!is_null($imagenPrincipal)) { ?>
-                        <img src="<?php echo $imagenPrincipal; ?>" class="img-thumbnail my-3"><br>
+                    <?php if (file_exists($imagenPrincipal)) { ?>
+                        <img src="<?php echo $imagenPrincipal . '?id=' . time(); ?> class=" img-thumbnail my-3"><br>
+                        <button class="btn btn-danger btn-sm"
+                                onclick="eliminaImagen('<?php echo $imagenPrincipal; ?>')">Eliminar
+                        </button>
                     <?php } ?>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <?php foreach ($imagenes as $imagen) { ?>
+                            <div class="col-4">
+                                <img src="<?php echo $imagen . '?id=' . time(); ?>" class="img-thumbnail my-3"><br>
+                                <button class="btn btn-danger btn-sm" onclick="eliminaImagen('<?php echo $imagen; ?>')">
+                                    Eliminar
+                                </button>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
 
@@ -111,7 +138,9 @@ if (file_exists($imagenPrincipalJPEG)) {
                     <select class="form-select" name="categoria" id="categoria" required>
                         <option value="">Seleccionar</option>
                         <?php foreach ($categorias as $categoria) { ?>
-                            <option value="<?php echo $categoria['id']; ?>"><?php if ($categoria['id'] == $producto['id_categoria']) echo 'selected'; ?><?php echo $categoria['nombre']; ?></option>
+                            <option value="<?php echo $categoria['id']; ?>" <?php if ($categoria['id'] == $producto['id_categoria']) echo 'selected'; ?>>
+                                <?php echo $categoria['nombre']; ?>
+                            </option>
                         <?php } ?>
                     </select>
                 </div>
@@ -128,6 +157,21 @@ if (file_exists($imagenPrincipalJPEG)) {
         .catch(error => {
             console.error(error);
         });
+
+    function eliminaImagen(urlImagen) {
+        let url = 'eliminar_imagen.php'
+        let formData = new FormData()
+        formData.append('urlImagen', urlImagen)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then((response) => {
+            if (response.ok) {
+                location.reload()
+            }
+        })
+    }
 </script>
 
 
