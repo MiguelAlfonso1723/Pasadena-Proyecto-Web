@@ -25,7 +25,7 @@ $con = $db->conectar();
 
             <form action="guarda.php" method="post" autocomplete="off">
                 <div class="mb-3">
-                    <label for="nombre" class="form- label " </label>
+                    <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" required autofocus>
                 </div>
 
