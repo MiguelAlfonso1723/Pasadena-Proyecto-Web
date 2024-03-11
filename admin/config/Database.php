@@ -4,7 +4,7 @@ class Database {
      private $hostname = "localhost";
      private $database = "pasadena_online";
      private $username = "root";
-     private $password = "Miguel1723";
+     private $password = "";
      private $charset = "utf8";
 
 

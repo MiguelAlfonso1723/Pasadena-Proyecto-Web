@@ -1,10 +1,10 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
-require './clases/clienteFunciones.php';
+require_once './config/config.php';
+require_once './config/Database.php';
+require_once './clases/clienteFunciones.php';
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $errors = [];
@@ -46,7 +46,7 @@ if (!empty($_POST)) {
 
         if ($id > 0) {
 
-            require 'clases/Mailer.php';
+            require_once 'clases/Mailer.php';
 
             $token = generarToken();
             $mailer = new Mailer();

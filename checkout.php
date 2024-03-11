@@ -1,8 +1,8 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
-$db = new database();
+require_once './config/config.php';
+require_once './config/Database.php';
+$db = new Database();
 $con = $db->conectar();
 
 $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;

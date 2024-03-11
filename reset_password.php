@@ -1,8 +1,8 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
-require './clases/clienteFunciones.php';
+require_once './config/config.php';
+require_once './config/Database.php';
+require_once './clases/clienteFunciones.php';
 
 $user_id = $_GET['id'] ?? $_POST['user_id'] ?? '';
 $token = $_GET['token'] ?? $_POST['token'] ?? '';
@@ -12,7 +12,7 @@ if ($user_id == '' || $token == '') {
     exit;
 }
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $errors = [];

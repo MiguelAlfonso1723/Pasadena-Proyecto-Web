@@ -1,9 +1,9 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
+require_once './config/config.php';
+require_once './config/Database.php';
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activo = 1");

@@ -1,8 +1,8 @@
 <?php
 
-require '../config/config.php';
-require '../config/database.php';
-$db = new database();
+require_once '../config/config.php';
+require_once '../config/Database.php';
+$db = new Database();
 $con = $db->conectar();
 
 $json = file_get_contents('php://input');
@@ -46,7 +46,7 @@ if (is_array($datos)) {
                 $sql_insert = $con->prepare("INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) VALUES (?, ?, ?, ?, ?)");
                 $sql_insert->execute([$id, $clave, $row_prod['nombre'], $precio_desc, $cantidad]);
             }
-            require 'Mailer.php';
+            require_once 'Mailer.php';
 
             $asunto = "Detalles de su pedido";
             $cuerpo = '<h4>Gracias por su compra</h4>';

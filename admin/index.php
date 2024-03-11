@@ -1,7 +1,7 @@
 <?php
 
-require 'config/database.php';
-require 'clases/adminFunciones.php';
+require_once 'config/database.php';
+require_once 'clases/adminFunciones.php';
 
 $db = new Database();
 $con = $db->conectar();

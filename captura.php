@@ -1,6 +1,6 @@
 <?php 
 
-require 'config/config.php';
+require_once 'config/config.php';
 
 $payment = $_GET['payment_id'];
 $status = $_GET['status'];

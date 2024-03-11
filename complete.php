@@ -1,8 +1,8 @@
 <?php
 
-require 'config/config.php';
-require 'config/database.php';
-$db = new database();
+require_once 'config/config.php';
+require_once 'config/Database.php';
+$db = new Database();
 $con = $db->conectar();
 
 $id_transaccion = isset($_GET['key']) ? $_GET['key'] : '0';

@@ -1,10 +1,10 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
-require './clases/clienteFunciones.php';
+require_once './config/config.php';
+require_once './config/Database.php';
+require_once './clases/clienteFunciones.php';
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $errors = [];
@@ -32,7 +32,7 @@ if (!empty($_POST)) {
             $token = solicitaPasssword($idUsuario, $con);
 
             if ($token !== null) {
-                require 'clases/Mailer.php';
+                require_once 'clases/Mailer.php';
                 $mailer = new Mailer();
 
                 $url = SITE_URL . '/reset_password.php?id=' . $idUsuario . '&token=' . $token;

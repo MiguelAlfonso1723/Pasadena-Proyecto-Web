@@ -1,7 +1,7 @@
 <?php 
 
-require '../config/config.php';
-require '../config/database.php';
+require_once '../config/config.php';
+require_once '../config/Database.php';
 
 if(isset($_POST['action'])){
     
@@ -39,7 +39,7 @@ function agregar( $id, $cantidad){
         if(isset($_SESSION['carrito']['productos'][$id])){
             $_SESSION['carrito']['productos'][$id] = $cantidad;
 
-            $db = new database();
+            $db = new Database();
             $con = $db ->conectar();
 
             $sql = $con->prepare("SELECT precio, descuento FROM productos WHERE id=? AND activo=1 LIMIT 1");

@@ -1,8 +1,8 @@
 <?php
 
-require './config/config.php';
-require './config/database.php';
-require './clases/clienteFunciones.php';
+require_once './config/config.php';
+require_once './config/Database.php';
+require_once './clases/clienteFunciones.php';
 
 $token_session = $_SESSION['token'];
 $orden = $_GET['orden'] ?? null;
@@ -13,7 +13,7 @@ if ($orden == null || $token == null || $token != $token_session) {
     exit;
 }
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $sqlCompra = $con->prepare("SELECT id, id_transaccion, fecha, total FROM compra WHERE id_transaccion = ? LIMIT 1");

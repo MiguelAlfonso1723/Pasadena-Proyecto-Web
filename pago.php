@@ -1,15 +1,15 @@
 <?php
 
-require 'config/config.php';
-require 'config/database.php';
-require 'vendor/autoload.php';
+require_once 'config/config.php';
+require_once 'config/Database.php';
+require_once 'vendor/autoload.php';
 
 MercadoPago\SDK::setAccessToken(TOKEN_MP);
 
 $preference = new MercadoPago\Preference();
 $productos_mp = array();
 
-$db = new database();
+$db = new Database();
 $con = $db->conectar();
 
 $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;

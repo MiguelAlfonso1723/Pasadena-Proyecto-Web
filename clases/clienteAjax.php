@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../config/database.php';
+require_once '../config/Database.php';
 require_once  'clienteFunciones.php';
 
 $datos =  [];
@@ -10,7 +10,7 @@ if(isset($_POST['action'])){
 
     $action = $_POST['action'];
 
-    $db = new database();
+    $db = new Database();
     $con = $db->conectar();
 
     if($action == 'existeUsuario'){

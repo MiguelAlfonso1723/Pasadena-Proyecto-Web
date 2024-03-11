@@ -1,5 +1,23 @@
 <?php
 
+$path = dirname(__FILE__);
+
+require_once $path.'/database.php';
+require_once $path.'/../admin/clases/cifrado.php';
+
+$db = new Database();
+$con = $db->conectar();
+
+$sql = "SELECT nombre, valor FROM configuracion";
+$resultado = $con->query($sql);
+$datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+$config = [];
+
+foreach ($datos as $dato) {
+    $config[$dato['nombre']] =$dato['valor'];
+}
+
 //Configuración del Sistema
 define("SITE_URL", "http://localhost:8080/Proyecto-Git");
 define("KEY_TOKEN", "AAMSAA.cpk-7536@");
@@ -17,10 +35,10 @@ define("LOCALE_MP", "es-CO");
 
 
 //Datos para envio de correo Electronico
-define("MAIL_HOST", "smtp.gmail.com");
-define("MAIL_USER", "miguel.alfonso1702@gmail.com");
-define("MAIL_PASS", "tfmqzpfilmzvfewt");
-define("MAIL_PORT", "465");
+define("MAIL_HOST", $config['correo_smtp']);
+define("MAIL_USER", $config['correo_email']);
+define("MAIL_PASS", descifrar($config['correo_password']));
+define("MAIL_PORT", $config['correo_puerto']);
 
 session_start();
 
