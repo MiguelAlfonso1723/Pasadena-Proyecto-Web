@@ -1,10 +1,10 @@
 <?php
 
 class Database {
-     private $hostname = "localhost";
+     private $hostname = "74.234.11.226";
      private $database = "pasadena_online";
-     private $username = "root";
-     private $password = "";
+     private $username = "pasadena";
+     private $password = "pasadena";
      private $charset = "utf8";
 
 
