@@ -3,8 +3,8 @@
 class Database {
      private $hostname = "74.234.11.226";
      private $database = "pasadena_online";
-     private $username = "pasadena";
-     private $password = "pasadena";
+     private $username = "root";
+     private $password = "";
      private $charset = "utf8";
 
 
