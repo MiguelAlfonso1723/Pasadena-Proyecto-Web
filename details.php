@@ -199,6 +199,8 @@ if ($id == '' || $token == '') {
                 if (data.ok) {
                     let elemento = document.getElementById("num_cart")
                     elemento.innerHTML = data.numero
+                } else{
+                    alert("No hay suficientes existencias")
                 }
             })
     }

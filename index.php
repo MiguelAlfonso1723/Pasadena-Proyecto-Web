@@ -100,6 +100,8 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
           if (data.ok) {
             let elemento = document.getElementById("num_cart")
             elemento.innerHTML = data.numero
+          } else {
+              alert("No hay suficientes existencias")
           }
         })
     }

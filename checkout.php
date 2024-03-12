@@ -186,6 +186,10 @@ if ($productos != null) {
                         minimumFractionDigits: 2
                     }).format(total)
                     document.getElementById('total').innerHTML = '<?php echo MONEDA; ?>' + total
+                }else {
+                    let inputCantidad = document.getElementById('cantidad_' + id)
+                    inputCantidad.value = data.cantidadAnterior
+                    alert("No hay suficientes existencias")
                 }
             }))
     }
